@@ -38,17 +38,33 @@ public class TrianglePattern {
 		initial = initial;
 		int nwBlock,nBlock,neBlock;
 		
-		// put initial[] in first row of grid
-		grid[0] = initial;
+		// put initial[] into the first row of grid
+		int index;
+		for (int i = 0; i < initial.length; i++) {
+			// initial[] is an array of the indices that are filled 
+			index = initial[i];
+			// put a 1 in the appropriate indices
+			grid[0][index] = 1;
+		}
 
 		// loop through rows, starting with second row
 		for (int i = 1; i < h; i++) {
 
 			// loop through cells in row, starting with first cell
 			for (int j = 0; j < n; j++) {
+				// get states of line above
+				// TODO take care of out-of-range idices 
 				nwBlock = grid[i-1][j-1];
 				nBlock = grid[i-1][j];
 				neBlock = grid[i-1][j+1];
+
+				// narrow down cases
+				if (nwBlock != 1) {
+					// suck shit
+				} else if (nwBlock == 1) {
+					// suck shit
+				}
+
 			} // cells loop
 
 		} // rows loop
