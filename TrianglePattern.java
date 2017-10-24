@@ -1,8 +1,8 @@
-/* 
-	Problem 2 
-	Hjemmeopgave 2 - Indledende Programmering
-	Asbjørn Olling
- */ 
+/*
+ Problem 2 
+ Hjemmeopgave 2 - Indledende Programmering
+ Asbjørn Olling
+*/ 
 
 // 1d pattern
 // growing process is top-down
@@ -20,12 +20,11 @@ public class TrianglePattern {
 	// declare fields
 	private int h, n;
 	private int[] initial;
-	private int[][] grid;
+	public int[][] grid;
 
 	/*
 	public static void main(String args[]) {
 		System.out.println("Hello world!");
-		// zuck shit
 	}
 	// */
 
@@ -45,7 +44,6 @@ public class TrianglePattern {
 		for (int i = 0; i < initial.length; i++) {
 			// initial[] is an array of the indices that are filled 
 			index = initial[i];
-			System.out.println(index+" n="+n+" initlength="+initial.length+" row0length="+grid[0].length);
 			// put a 1 in the appropriate indices
 			grid[0][index] = 1;
 		}
@@ -56,7 +54,7 @@ public class TrianglePattern {
 
 			// loop through cells in row, from second to second-last cell 
 			// (because the first and last dont have NW and NE blocks)
-			for (int j = 1; j < n; j++) {
+			for (int j = 1; j < n-1; j++) {
 				// get states of line above
 				nwBlock = grid[i-1][j-1];
 				nBlock = grid[i-1][j];
@@ -76,7 +74,7 @@ public class TrianglePattern {
 
 						// second case
 						if (neBlock == 1) {
-							grid[i][j] = 0;
+							grid[i][j] = 1;
 						}
 					} 
 
@@ -96,7 +94,7 @@ public class TrianglePattern {
 						if (neBlock == 0) {
 							grid[i][j] = 1;
 						}
-
+						
 						// sixth case
 						else if (neBlock == 1) {
 							grid[i][j] = 0;
@@ -108,27 +106,33 @@ public class TrianglePattern {
 					else if (nBlock == 1) {
 						grid[i][j] = 0;
 					}
-				} // end of last four
+				} // end of all 8 cases
 
 			} // cells loop
 
 		} // rows loop
 
+			System.out.println("FINISHED CONSTRUCTOR");
 	} // constructor
 
 
 	// getter methods
 	public int getValueAt(int r, int c) {
+		// it never reaches this line
+		System.out.println("getValue CALLED");
 		return grid[r][c];
-	} 
+	} //*/ 
 	public int getN() {
+		System.out.println("getN CALLED");
 		return n;
 	}
 	public int getH() {
+		System.out.println("getH CALLED");
 		return h;
 	}
 	public int[] getInitial() {
+		System.out.println("getInitial CALLED");
 		return initial;
 	} // getters
 
-}
+} // class
