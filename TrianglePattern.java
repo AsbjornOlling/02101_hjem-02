@@ -20,7 +20,7 @@ public class TrianglePattern {
 	// declare fields
 	private int h, n;
 	private int[] initial;
-	private int[][] grid = new int[h][n];
+	private int[][] grid;
 
 	/*
 	public static void main(String args[]) {
@@ -36,34 +36,79 @@ public class TrianglePattern {
 		h = h;
 		n = n;
 		initial = initial;
-		int nwBlock,nBlock,neBlock;
+	
+		// initialize grid array	
+		grid = new int[h][n];
 		
 		// put initial[] into the first row of grid
 		int index;
 		for (int i = 0; i < initial.length; i++) {
 			// initial[] is an array of the indices that are filled 
 			index = initial[i];
+			System.out.println(index+" n="+n+" initlength="+initial.length+" row0length="+grid[0].length);
 			// put a 1 in the appropriate indices
 			grid[0][index] = 1;
 		}
 
 		// loop through rows, starting with second row
+		int nwBlock,nBlock,neBlock; // northwest, north, and northeast blocks
 		for (int i = 1; i < h; i++) {
 
-			// loop through cells in row, starting with first cell
-			for (int j = 0; j < n; j++) {
+			// loop through cells in row, from second to second-last cell 
+			// (because the first and last dont have NW and NE blocks)
+			for (int j = 1; j < n; j++) {
 				// get states of line above
-				// TODO take care of out-of-range idices 
 				nwBlock = grid[i-1][j-1];
 				nBlock = grid[i-1][j];
 				neBlock = grid[i-1][j+1];
 
-				// narrow down cases
-				if (nwBlock != 1) {
-					// suck shit
-				} else if (nwBlock == 1) {
-					// suck shit
-				}
+				// narrow down cases - similar to binary search??
+				// first four cases:
+				if (nwBlock == 0) {
+
+					// first two cases
+					if (nBlock == 0) {
+
+						// first case
+						if (neBlock == 0) {
+							grid[i][j] = 0;
+						}
+
+						// second case
+						if (neBlock == 1) {
+							grid[i][j] = 0;
+						}
+					} 
+
+					// third and fourth cases give the same output
+					else if (nBlock == 1) {
+						grid[i][j] = 1;
+					}
+				} // end of first four
+
+				// last four cases
+				else if (nwBlock == 1) {
+
+					// fifth and sixth cases
+					if (nBlock == 0) {
+
+						// fifth case
+						if (neBlock == 0) {
+							grid[i][j] = 1;
+						}
+
+						// sixth case
+						else if (neBlock == 1) {
+							grid[i][j] = 0;
+						}
+
+					}
+
+					// last two cases give the same output
+					else if (nBlock == 1) {
+						grid[i][j] = 0;
+					}
+				} // end of last four
 
 			} // cells loop
 
@@ -72,14 +117,10 @@ public class TrianglePattern {
 	} // constructor
 
 
-	// return 0 if empty
-	// return 1 if filled
-	public int getValueAt(int r, int c) {
-		return 0;
-	} // getValueAt
-
-
 	// getter methods
+	public int getValueAt(int r, int c) {
+		return grid[r][c];
+	} 
 	public int getN() {
 		return n;
 	}
