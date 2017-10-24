@@ -17,9 +17,9 @@ public class TPViewer {
 
 	public static void main(String[] args) {
 		// CHANGE VALUES IN THE NEXT THREE LINES 
-		int width = 44;
-		int height = 20;
-		int[] initial = { 17 };
+		int width = 100;
+		int height = 50;
+		int[] initial = { 20, 26, 69 };
 		//-------------------------------------
 
 		TrianglePattern tp = new TrianglePattern(width, height, initial);
@@ -79,7 +79,6 @@ public class TPViewer {
 		}
 
 		panel.repaint();
-
 	}
 
 }

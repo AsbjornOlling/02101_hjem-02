@@ -17,9 +17,10 @@
 // 3. generate graphic using TPViewer
 
 public class TrianglePattern {
-	// declare fields
-	private int h, n;
+	// declare class fields
+	private int h,n;
 	private int[] initial;
+	// TODO: make this private, once done with testing
 	public int[][] grid;
 
 	/*
@@ -32,8 +33,8 @@ public class TrianglePattern {
 	// main code of the simulation
 	public TrianglePattern(int n, int h, int[] initial) {
 		// put arguments into instance fields
-		h = h;
-		n = n;
+		this.h = h;
+		this.n = n;
 		initial = initial;
 	
 		// initialize grid array	
@@ -49,7 +50,7 @@ public class TrianglePattern {
 		}
 
 		// loop through rows, starting with second row
-		int nwBlock,nBlock,neBlock; // northwest, north, and northeast blocks
+		int nwBlock,nBlock,neBlock; // "northwest", "north", and "northeast" blocks
 		for (int i = 1; i < h; i++) {
 
 			// loop through cells in row, from second to second-last cell 
@@ -116,18 +117,19 @@ public class TrianglePattern {
 
 
 	// getter methods
+	// TODO none of these work...
 	public int getValueAt(int r, int c) {
 		// it never reaches this line
 		return grid[r][c];
 	} //*/ 
 	public int getN() {
-		return n;
+		return this.n;
 	}
 	public int getH() {
-		return h;
+		return this.h;
 	}
 	public int[] getInitial() {
-		return initial;
+		return this.initial;
 	} // getters
 
 } // class
