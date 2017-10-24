@@ -4,40 +4,25 @@
  Asbjørn Olling
 */ 
 
-// 1d pattern
-// growing process is top-down
-
 // h rows
 // n cells per row
 // int[] initial: indexes of filled columns in row 0
-
-// 1. seeds are planted in row 0
-// 2. growing process starts top down
-// 		loops h times
-// 3. generate graphic using TPViewer
 
 public class TrianglePattern {
 	// declare class fields
 	private int h,n;
 	private int[] initial;
-	// TODO: make this private, once done with testing
-	public int[][] grid;
-
-	/*
-	public static void main(String args[]) {
-		System.out.println("Hello world!");
-	}
-	// */
+	private int[][] grid;
 
 	// constructor
-	// main code of the simulation
+	// main code for generating the pattern
 	public TrianglePattern(int n, int h, int[] initial) {
-		// put arguments into instance fields
+		// put parameters into instance fields
 		this.h = h;
 		this.n = n;
 		this.initial = initial;
 	
-		// initialize grid array	
+		// declare grid array	
 		grid = new int[h][n];
 		
 		// put initial[] into the first row of grid
@@ -45,12 +30,13 @@ public class TrianglePattern {
 		for (int i = 0; i < initial.length; i++) {
 			// initial[] is an array of the indices that are filled 
 			index = initial[i];
-			// put a 1 in the appropriate indices
+			// put an int 1 in the mentioned indices
 			grid[0][index] = 1;
 		}
 
+		// declare "northwest", "north", and "northeast" blocks
+		int nwBlock,nBlock,neBlock; 
 		// loop through rows, starting with second row
-		int nwBlock,nBlock,neBlock; // "northwest", "north", and "northeast" blocks
 		for (int i = 1; i < h; i++) {
 
 			// loop through cells in row, from second to second-last cell 
@@ -117,11 +103,9 @@ public class TrianglePattern {
 
 
 	// getter methods
-	// TODO none of these work...
 	public int getValueAt(int r, int c) {
-		// it never reaches this line
 		return grid[r][c];
-	} //*/ 
+	}
 	public int getN() {
 		return this.n;
 	}
