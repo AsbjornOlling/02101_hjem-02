@@ -112,26 +112,21 @@ public class TrianglePattern {
 
 		} // rows loop
 
-			System.out.println("FINISHED CONSTRUCTOR");
 	} // constructor
 
 
 	// getter methods
 	public int getValueAt(int r, int c) {
 		// it never reaches this line
-		System.out.println("getValue CALLED");
 		return grid[r][c];
 	} //*/ 
 	public int getN() {
-		System.out.println("getN CALLED");
 		return n;
 	}
 	public int getH() {
-		System.out.println("getH CALLED");
 		return h;
 	}
 	public int[] getInitial() {
-		System.out.println("getInitial CALLED");
 		return initial;
 	} // getters
 
