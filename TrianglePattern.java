@@ -35,7 +35,7 @@ public class TrianglePattern {
 		// put arguments into instance fields
 		this.h = h;
 		this.n = n;
-		initial = initial;
+		this.initial = initial;
 	
 		// initialize grid array	
 		grid = new int[h][n];
