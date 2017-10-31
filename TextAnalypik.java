@@ -16,7 +16,7 @@ import java.io.*; // for File and FileNotFoundException
 public class TextAnalypik {
 	// fields
 	private Scanner text;
-	public ArrayList<String> uniqueWords;
+	public ArrayList<String> uniqueWords = new ArrayList<String>();
 	public int maxNoOfWords;
 	public int wordCount;
 	public int immediateRepetitions;
@@ -38,12 +38,12 @@ public class TextAnalypik {
 		while (text.hasNextLine()) {
 			// pull out a line
 			aLine = text.nextLine();
-			System.out.println(aLine);
 
 			// split the line into words
 			wordsInLine = aLine.split("[^a-zA-Z]+");
 
-			// the first word is always unique
+			// System.out.println(wordsInLine[0]);
+			// the first word is always unique - add to the unique words list
 			uniqueWords.add(wordsInLine[0]);
 			
 			// go through the words
@@ -60,7 +60,7 @@ public class TextAnalypik {
 				// add to list of unique words
 				if (uniqueWords.contains(word)) {
 					uniqueWords.add(word);
-				}
+				} //*/
 
 				// count an immediate repetition if last word equals this word
 				if (previousWord.equals(word)) {
@@ -81,10 +81,10 @@ public class TextAnalypik {
 	// here come the getter methods
 	public int wordCount() {
 		return wordCount;
-	}
+	} 
 	public int getNoOfDifferentWords() {
 		return uniqueWords.size();
-	}
+	} //*/
 	public int getNoOfRepetitions() {
 		return immediateRepetitions;
 	}
