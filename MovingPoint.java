@@ -42,7 +42,7 @@ public class MovingPoint extends Point2D.Double {
 
 		// second print: pass
     System.out.println(mp0);
-    System.out.println("MP1: "+mp1);
+    System.out.println(mp1);
     System.out.println(mp2);
 
     mp0.accelerateBy(4.0); // pass
@@ -114,13 +114,13 @@ public class MovingPoint extends Point2D.Double {
 			speed = 0;
 		} // fi	
 
-		/*
-		// if speed negative, make sped positive
-		// and change the angle
+		/* 
+		// turn the point around, if speed < 0
 		if (speed < 0) {
 			speed = speed * -1;
 			direction = (direction + 180) % 360;
 		} //fi */
+
 	} // accelerateBy
 
 
