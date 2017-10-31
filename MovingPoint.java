@@ -31,11 +31,11 @@ public class MovingPoint extends Point2D.Double {
 		MovingPoint mp1 = new MovingPoint(1., 2, 180, 2.0);
 		System.out.println(mp1);
 
-		// print2 - new coords fail 
+		// print2 - pass
 		mp1.move(3);
 		System.out.println(mp1);
 
-		// print3 - new angle is negative zero
+		// print3 - pass
 		mp1.turnBy(-540);
 		System.out.println(mp1);
 
@@ -71,8 +71,8 @@ public class MovingPoint extends Point2D.Double {
 
 	// move the point for a number of time units
 	public void move(double duration) {
-		x += Math.cos(direction) * speed * duration;
-		y += Math.sin(direction) * speed * duration;
+		x += Math.cos(Math.toRadians(direction)) * speed * duration;
+		y += Math.sin(Math.toRadians(direction)) * speed * duration;
 	} // move
 
 
