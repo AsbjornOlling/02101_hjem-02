@@ -58,11 +58,11 @@ public class TextAnalypik {
 
 				// if word not in list of unique words
 				// add to list of unique words
-				if (uniqueWords.contains(word)) {
+				if (!uniqueWords.contains(word)) {
 					uniqueWords.add(word);
 				} //*/
 
-				// count an immediate repetition if last word equals this word
+				// count an immediate repetition, if last word equals this word
 				if (previousWord.equals(word)) {
 					immediateRepetitions++;
 				}
