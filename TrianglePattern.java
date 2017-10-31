@@ -14,7 +14,6 @@ public class TrianglePattern {
 	private int[] initial;
 	private int[][] grid;
 
-	// constructor
 	// main code for generating the pattern
 	public TrianglePattern(int n, int h, int[] initial) {
 		// put parameters into instance fields
