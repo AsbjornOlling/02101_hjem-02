@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.ArrayList; // for uniqueworsd list
 import java.io.*; // for File and FileNotFoundException
 
-		// number of words WORKS
+// number of words
 // number of unique words
 // number of immediate repetitions
 
@@ -88,5 +88,5 @@ public class TextAnalypik {
 	public int getNoOfRepetitions() {
 		return immediateRepetitions;
 	}
-
+			
 } // class
