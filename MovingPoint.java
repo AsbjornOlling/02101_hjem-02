@@ -27,12 +27,15 @@ public class MovingPoint extends Point2D.Double {
 	public double speed;
 
 	public static void main(String[] a){
+		// pass
 		MovingPoint mp1 = new MovingPoint(1., 2, 180, 2.0);
-
 		System.out.println(mp1);
+
+		// print2 - new coords fail 
 		mp1.move(3);
 		System.out.println(mp1);
 
+		// print3 - new angle is negative zero
 		mp1.turnBy(-540);
 		System.out.println(mp1);
 
@@ -46,7 +49,7 @@ public class MovingPoint extends Point2D.Double {
 		mp1.accelerateBy(3.0);
 		mp1.move(1.43);
 		System.out.println(mp1);
-	}
+	} // lop
 
 	// makes a point with dir 90, speed 0, at coords 0,0
 	public MovingPoint() {
@@ -73,9 +76,15 @@ public class MovingPoint extends Point2D.Double {
 	} // move
 
 
-	// change the angle, make sure it's not over 360
+	// change the angle
 	public void turnBy(double angle) {
+		// simple change, making sure to keep value under 360
 		direction = (direction + angle) % 360;
+
+		// handle "negative zero" output
+		if (1 / direction < 0) {
+			direction += 0.0;
+		} // negative zero
 	}	// turnBy
 
 
