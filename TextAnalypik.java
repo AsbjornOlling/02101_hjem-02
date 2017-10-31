@@ -42,19 +42,21 @@ public class TextAnalypik {
 			// split the line into words
 			wordsInLine = aLine.split("[^a-zA-Z]+");
 
-			// System.out.println(wordsInLine[0]);
-			// the first word is always unique - add to the unique words list
-			uniqueWords.add(wordsInLine[0]);
-			
 			// go through the words
 			// until line runs out, or max words reached
 			String word;
 			for (int i = 0; i < wordsInLine.length && wordCount < maxNoOfWords; i++) {
+
+				// get word from array
+				word = wordsInLine[i].toLowerCase();
+
+				// sanity check: if word is empty, stop here
+				if (word.length() == 0) {
+					break;
+				}
+
 				// count each word
 				wordCount++;
-
-				// give the word a better name
-				word = wordsInLine[i];
 
 				// if word not in list of unique words
 				// add to list of unique words
