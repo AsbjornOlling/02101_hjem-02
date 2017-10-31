@@ -27,29 +27,35 @@ public class MovingPoint extends Point2D.Double {
 	public double speed;
 
 	public static void main(String[] a){
-		// pass
-		MovingPoint mp1 = new MovingPoint(1., 2, 180, 2.0);
-		System.out.println(mp1);
+    MovingPoint mp0 = new MovingPoint();
+    MovingPoint mp1 = new MovingPoint(1.0, 3.14, 22.5, 2.11);
+    MovingPoint mp2 = new MovingPoint(100.23, 2000.34, 225, 10);
 
-		// print2 - pass
-		mp1.move(3);
-		System.out.println(mp1);
+		// first print: pass
+    System.out.println(mp0);
+    System.out.println(mp1);
+    System.out.println(mp2);
 
-		// print3 - pass
-		mp1.turnBy(-540);
-		System.out.println(mp1);
+    mp0.move(2);
+    mp1.move(3);
+    mp2.move(2);
 
-		mp1.accelerateBy(4.0);
-		mp1.move(2);
-		System.out.println(mp1);
+		// second print: pass
+    System.out.println(mp0);
+    System.out.println("MP1: "+mp1);
+    System.out.println(mp2);
 
-		mp1.accelerateBy(-7.0);
-		mp1.move(2);
-		System.out.println(mp1);
-		mp1.accelerateBy(3.0);
-		mp1.move(1.43);
-		System.out.println(mp1);
-	} // lop
+    mp0.accelerateBy(4.0); // pass
+    mp1.turnBy(-157); // FUCKUP
+    mp2.turnBy(15);
+    mp2.accelerateBy(-0.134);
+    mp0.move(10);
+    mp1.move(10);
+    mp2.move(10);
+    System.out.println(mp0);
+    System.out.println(mp1);
+    System.out.println(mp2);
+	} // debug method
 
 	// makes a point with dir 90, speed 0, at coords 0,0
 	public MovingPoint() {
@@ -78,8 +84,18 @@ public class MovingPoint extends Point2D.Double {
 
 	// change the angle
 	public void turnBy(double angle) {
-		// simple change, making sure to keep value under 360
-		direction = (direction + angle) % 360;
+		// simple change
+		direction = (direction + angle);
+
+		// make sure it's in the interval [0;360]
+		while (direction > 360) {
+			direction -= 360;
+		} // while greater
+
+		// make sure it's in the interval [0;360]
+		while (direction < 0) {
+			direction += 360;
+		} // while lesser
 
 		// handle "negative zero" output
 		if (1 / direction < 0) {
@@ -93,12 +109,18 @@ public class MovingPoint extends Point2D.Double {
 		// make the simple speed change
 		speed += change;
 
+		// set speed to 0, if less than 0
+		if (speed < 0) {
+			speed = 0;
+		} // fi	
+
+		/*
 		// if speed negative, make sped positive
 		// and change the angle
 		if (speed < 0) {
 			speed = speed * -1;
 			direction = (direction + 180) % 360;
-		} // fi
+		} //fi */
 	} // accelerateBy
 
 
