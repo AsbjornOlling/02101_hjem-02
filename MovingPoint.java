@@ -4,19 +4,8 @@
 // Asbjørn Olling
 */ 
 
-// a point in 2-dimensional space which moves
-//
-// movement is described by direction and speed
-// angle: 
-// 	positive x: 0 degrees
-// 	positive y: 90 degrees
-// 	range: 0-360
-// speed:
-// 	a non-negative value
-// 	distance in one time unit
-// 	range 0-20.0 (20.0 max speed)
-// position:
-// 	x and y coords
+// a point in 2d-space, which moves described by doubles
+// representing direction, speed, and coordinates
 
 import java.lang.Math;
 import java.awt.geom.Point2D; // class to inherit from
@@ -26,6 +15,8 @@ public class MovingPoint extends Point2D.Double {
 	public double direction;
 	public double speed;
 
+	 
+	// debug method
 	public static void main(String[] a){
     MovingPoint mp0 = new MovingPoint();
     MovingPoint mp1 = new MovingPoint(1.0, 3.14, 22.5, 2.11);
@@ -55,12 +46,12 @@ public class MovingPoint extends Point2D.Double {
     System.out.println(mp0);
     System.out.println(mp1);
     System.out.println(mp2);
-	} // debug method
+	} // debug method */
 
-	// makes a point with dir 90, speed 0, at coords 0,0
+
+	// makes a point at the origin (0,0) with dir 90, speed 0 
 	public MovingPoint() {
-		x = 0;
-		y = 0;
+		x = y = 0; // coordinates at origin
 		direction = 90;
 		speed = 0;
 	} // default constructor
@@ -77,8 +68,9 @@ public class MovingPoint extends Point2D.Double {
 
 	// move the point for a number of time units
 	public void move(double duration) {
-		x += Math.cos(Math.toRadians(direction)) * speed * duration;
-		y += Math.sin(Math.toRadians(direction)) * speed * duration;
+		double dirRadians = Math.toRadians(direction);
+		x += Math.cos(dirRadians) * speed * duration;
+		y += Math.sin(dirRadians) * speed * duration;
 	} // move
 
 
