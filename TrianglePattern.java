@@ -6,7 +6,7 @@
 
 // h rows
 // n cells per row
-// int[] initial: indexes of filled columns in row 0
+// int[] initial: indices of filled columns in row 0
 
 public class TrianglePattern {
 	// declare class fields
@@ -46,7 +46,8 @@ public class TrianglePattern {
 				nBlock = grid[i-1][j];
 				neBlock = grid[i-1][j+1];
 
-				// narrow down cases - similar to binary search??
+				// since the cases are already sorted in the assignment
+				// we can narrow down the cases, like a hardcoded binary search
 				// first four cases:
 				if (nwBlock == 0) {
 
@@ -65,6 +66,7 @@ public class TrianglePattern {
 					} 
 
 					// third and fourth cases give the same output
+					// no need to check for which
 					else if (nBlock == 1) {
 						grid[i][j] = 1;
 					}
@@ -93,11 +95,8 @@ public class TrianglePattern {
 						grid[i][j] = 0;
 					}
 				} // end of all 8 cases
-
 			} // cells loop
-
 		} // rows loop
-
 	} // constructor
 
 
