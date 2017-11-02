@@ -13,10 +13,22 @@ import java.io.*; // for File and FileNotFoundException
 // number of unique words
 // number of immediate repetitions
 
+// HAMLET NOTES:
+// underestimates wordcount
+// underestimates unique wordcount
+// underestimates repeated words
+// linecount is on point
+//
+// if not checking wordlength == 0
+// 	wordcount way over
+// 	unique wordcount on point
+// 	repetitions way over (+850)
+
 public class TextAnalypik {
 	// fields
 	private Scanner text;
 	public ArrayList<String> uniqueWords = new ArrayList<String>();
+	public ArrayList<String> allWords = new ArrayList<String>();
 	public int maxNoOfWords;
 	public int wordCount;
 	public int immediateRepetitions;
@@ -24,59 +36,59 @@ public class TextAnalypik {
 	public TextAnalypik(String sourceFileName, int maxNoOfWords) {
 		this.maxNoOfWords = maxNoOfWords;
 
-		try { // open the file
+		// open the file
+		try {
 			text = new Scanner(new File(sourceFileName));
 		} catch (FileNotFoundException ex) {
-			System.out.println("The file wasn't found.");
-		} // file opened - probably
+			System.out.println("ERROR: The file wasn't found.");
+		} //*/
+
+		// declare the vars used in the loop
+		String previousWord = "";
+		String[] arrayOfWords;
 
 		// go through the individual lines of the file
-		String aLine;
-		String[] wordsInLine;
-		wordCount = 0;
-		String previousWord = "";
 		while (text.hasNextLine()) {
-			// pull out a line
-			aLine = text.nextLine();
+			
+			// put a single line into an array of words
+			arrayOfWords = text.nextLine().split("[^a-zA-Z]+");
 
-			// split the line into words
-			wordsInLine = aLine.split("[^a-zA-Z]+");
+			// go through the words in a single line
+			for (String word : arrayOfWords) {
 
-			// go through the words
-			// until line runs out, or max words reached
-			String word;
-			for (int i = 0; i < wordsInLine.length && wordCount < maxNoOfWords; i++) {
-
-				// get word from array
-				word = wordsInLine[i].toLowerCase();
-
-				// sanity check: if word is empty, stop here
+				// handle cases where arrayOfWords is empty
 				if (word.length() == 0) {
+					System.out.print("NOT WORD: "+word+"\n");
 					break;
-				}
+				} //*/
+				System.out.print("WORD: "+word);
+				allWords.add(word);
 
-				// count each word
-				wordCount++;
-
-				// if word not in list of unique words
-				// add to list of unique words
+				// make lowercase, and check for uniqueness
+				word = word.toLowerCase();
 				if (!uniqueWords.contains(word)) {
 					uniqueWords.add(word);
+					System.out.print(" UNIQUE");
 				} //*/
 
 				// count an immediate repetition, if last word equals this word
 				if (previousWord.equals(word)) {
 					immediateRepetitions++;
-				}
+					System.out.print(" REPEATED");
+				} //*/
+
+				wordCount++;
+				System.out.print(" COUNT: "+wordCount+"\n");
+				System.out.print(" COUNT2: "+allWords.size()+"\n");
 
 				// set new previous word
 				previousWord = word;
-			} // words list
 
-			// stop reading new lines if max words reached
-			if (wordCount >= maxNoOfWords) {
+			} // words loop
+			if(wordCount >= maxNoOfWords) {
 				break;
 			}
+
 		} // lines loop
 	} // constructor
 
