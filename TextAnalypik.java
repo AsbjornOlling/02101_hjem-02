@@ -7,7 +7,9 @@
 import java.util.Scanner; // to read the file
 import java.util.Arrays;
 import java.util.ArrayList; // for uniqueworsd list
-import java.io.*; // for File and FileNotFoundException
+import java.io.*; // for File and FileNotFoundException and BufferedReader
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 // number of words
 // number of unique words
@@ -26,69 +28,63 @@ import java.io.*; // for File and FileNotFoundException
 
 public class TextAnalypik {
 	// fields
-	private Scanner text;
+	public BufferedReader text;
 	public ArrayList<String> uniqueWords = new ArrayList<String>();
 	public ArrayList<String> allWords = new ArrayList<String>();
 	public int maxNoOfWords;
 	public int wordCount;
 	public int immediateRepetitions;
 
-	public TextAnalypik(String sourceFileName, int maxNoOfWords) {
-		this.maxNoOfWords = maxNoOfWords;
+	public TextAnalypik(String sourceFileName, int maxNoOfWords) throws Exception {
 
 		// open the file
 		try {
-			text = new Scanner(new File(sourceFileName));
+			BufferedReader text = new BufferedReader(new FileReader(sourceFileName));
 		} catch (FileNotFoundException ex) {
-			System.out.println("ERROR: The file wasn't found.");
+			System.out.println("ERROR: The file wasn't found, or could not be read.");
 		} //*/
 
-		// declare the vars used in the loop
+		// declare some vars needed in the loops
 		String previousWord = "";
-		String[] arrayOfWords;
+		String line;
 
-		// go through the individual lines of the file
-		while (text.hasNextLine()) {
-			
-			// put a single line into an array of words
-			arrayOfWords = text.nextLine().split("[^a-zA-Z]+");
+		// pull a single line, stop when there are no more lines
+		readingLoop:
+		while ( ( line = text.readLine() ) != null ) {
+
+			// pull out letter-only words into an array
+			String[] arrayOfWords = line.split("[^a-zA-Z]+");
 
 			// go through the words in a single line
 			for (String word : arrayOfWords) {
 
-				// handle cases where arrayOfWords is empty
+				// handle cases with empty lines
 				if (word.length() == 0) {
-					System.out.print("NOT WORD: "+word+"\n");
 					break;
-				} //*/
-				System.out.print("WORD: "+word);
-				allWords.add(word);
+				}
 
-				// make lowercase, and check for uniqueness
+				// count the word
+				wordCount++;
+
+				// check for case-insensitive uniqueness
 				word = word.toLowerCase();
 				if (!uniqueWords.contains(word)) {
 					uniqueWords.add(word);
-					System.out.print(" UNIQUE");
-				} //*/
+				} 
 
 				// count an immediate repetition, if last word equals this word
 				if (previousWord.equals(word)) {
 					immediateRepetitions++;
-					System.out.print(" REPEATED");
-				} //*/
+				}
 
-				wordCount++;
-				System.out.print(" COUNT: "+wordCount+"\n");
-				System.out.print(" COUNT2: "+allWords.size()+"\n");
-
-				// set new previous word
+				// set this word as the new previous word
 				previousWord = word;
 
+				// break out of both nested loops, if wordcount reached (or exceeded)
+				if(wordCount >= maxNoOfWords) { 
+					break readingLoop;
+				}
 			} // words loop
-			if(wordCount >= maxNoOfWords) {
-				break;
-			}
-
 		} // lines loop
 	} // constructor
 
