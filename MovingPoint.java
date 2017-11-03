@@ -17,7 +17,7 @@ public class MovingPoint extends Point2D.Double {
 
 	// makes a point at the origin (0,0) with dir 90, speed 0 
 	public MovingPoint() {
-		x = y = 0; // coordinates at origin
+		setLocation(0,0);
 		direction = 90;
 		speed = 0;
 	} // default constructor
@@ -25,8 +25,7 @@ public class MovingPoint extends Point2D.Double {
 
 	// makes a point with specific coords, dir and speed
 	public MovingPoint(double x, double y, double direction, double speed) {
-		this.x = x;
-		this.y = y;
+		setLocation(x,y);
 		this.direction = direction;
 		this.speed = speed;
 	}	// specific constructor
