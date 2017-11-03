@@ -1,6 +1,6 @@
 public class AnalypikTester {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 	/*
 		System.out.println("00:"); 
     TextAnalypik ta0 = new TextAnalypik("text17_00.txt", 50);
@@ -19,9 +19,9 @@ public class AnalypikTester {
         System.out.println("word count = " + ta2.wordCount());
         System.out.println("different words = " + ta2.getNoOfDifferentWords());
         System.out.println("repetitions = " + ta2.getNoOfRepetitions());
-
 		//*/
-		System.out.println("                    HAMLET:");
+
+		System.out.println("HAMLET:");
     TextAnalypik hamlet	= new TextAnalypik("hamlet.txt", 50000);
         System.out.println("word count = " + hamlet.wordCount());
         System.out.println("different words = " + hamlet.getNoOfDifferentWords());
