@@ -18,52 +18,102 @@
 import java.util.Scanner;
 import java.io.*;
 import java.util.Arrays;
+import java.util.ArrayList;
 public class TextAnalysis {
+public int wordCount;
+public int getNoOfDifferentWords;
+public int getNoOfRepetitions;
+	
 	public static void main(String[] args) {
+		new TextAnalysis("text17_01.txt",50);
 	}
 	
-	public Scanner sc;
+	BufferedReader reader;
+	String line;
+	String sourceFileName = "text17_01.txt";
 	public TextAnalysis (String sourceFileName, int maxNoOfWords) {
-		sourceFileName = "text17_01.txt";
+		BufferedReader reader = null;
 		try {
-			Scanner sc = new Scanner( new File(sourceFileName));	
-		}catch (FileNotFoundException ex){
-			System.out.println("fejl");
+		    File file = new File("sourceFileName");
+		    reader = new BufferedReader(new FileReader(file));
+
+		    while ((line = reader.readLine()) != null) {
+		        System.out.println(line);
+		    }
+
+		} catch (IOException e) {
+		    e.printStackTrace();
+		} finally {
+		    try {
+		        reader.close();
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
 		}
 		
 		// counter starter paa 0
-		int wordCount=0;
+		wordCount=0;
+
+		//
+		String singleWord = null;
+		
+		//Array for unikke ord
+		ArrayList uniqueWords = new ArrayList();
 		
 		// saa laenge der er linjer koeres dette loop
 		while (sc.hasNextLine()) {
+			//
 			String aLine = sc.nextLine();
 			
 			// Splitter linjerne op i arrays bestaaende af ord
-			String[] text = aLine.split("[^a-zA-Z-']+"); // saadan her? hvad med tyske tegn?
+			String[] textArray = aLine.split("[^a-zA-Z-']+"); // saadan her? hvad med tyske tegn?
 			
-			// Antal ord paa linjen
-			int Arraylength=text.length;
-			
+			String[] blankLine= {};
+			int arrayLength;
+			if (!(textArray==blankLine)) {
+				// Antal ord paa linjen
+				arrayLength=textArray.length;
+				wordCount+=arrayLength;
+			}else {
+			break;
+			}
+
+			System.out.println(wordCount);
 			// Taeller summen af alle ord sammen
-			wordCount+=Arraylength;
 			
-			// Number of different words
-			// Mulige metoder:
-			// Skab et nyt array
-			// Alfabetisk sortering
-		}	// 
+			// Lav et for loop... saet det til i, naar du ikke har brug for stoettehjul
+			int i;
+			
+			//
+			for (i=0;i<arrayLength;i++) {
+				singleWord = textArray[i];
+				if (!uniqueWords.contains(singleWord)) {
+					uniqueWords.add(singleWord);
+					i++;
+				}else {
+				i++;
+				}			
+			}
+		}
+		
+		//
+		getNoOfDifferentWords = uniqueWords.size();
+		
+		/*System.out.println(getNoOfDifferentWords);
+		System.out.println(uniqueWords);
+		System.out.println(getNoOfRepetitions);*/
 	}
 	
 	public int wordCount () {
-		return wordCount();
+		return wordCount;
 	}
 	
 	public int getNoOfDifferentWords () {
-		return getNoOfDifferentWords();
+		return getNoOfDifferentWords;
 	}
 	
 	public int getNoOfRepetitions () {
-		return getNoOfRepetitions();
+		return getNoOfRepetitions;
 	}
 	
 }
