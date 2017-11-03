@@ -53,8 +53,16 @@ public class TextAnalypik {
 			for ( int i = 0; i < arrayOfWords.length; i++) {
 
 				String word = arrayOfWords[i];
+
+				// if word is empty, get a new one
+				while (word.length() == 0 && i < arrayOfWords.length) {
+					i++;
+					word = arrayOfWords[i];
+				}
+
 				System.out.println(word);
 
+				/*
 				// This is my fucking problem	
 				// TODO fix my fucking problem
 				if (word.length() == 0) {
