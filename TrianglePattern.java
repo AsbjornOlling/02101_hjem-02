@@ -45,7 +45,7 @@ public class TrianglePattern {
 				nBlock = grid[y-1][x];
 				neBlock = grid[y-1][x+1];
 
-				// the cases are already sorted in the assignment PDf
+				// the cases are already sorted in the assignment PDF
 				// so we can narrow down the cases to only two if statments
 				
 				// of the four cases that have nwBlock == 0, only the first case is empty
@@ -54,10 +54,11 @@ public class TrianglePattern {
 					grid[y][x] = 1;
 				}
 				// of the four cases that have nwBlock == 0, only the first case is filled
-				// so if it's that case: fill it
+				// so if it's that specific case: fill it
 				else if ( nwBlock == 1 && nBlock == 0 && neBlock == 0  ) {
 					grid[y][x] = 1;
 				} // end of all 8 cases
+
 			} // cells loop
 		} // rows loop
 	} // constructor

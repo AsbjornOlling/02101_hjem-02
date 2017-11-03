@@ -1,63 +1,60 @@
-02101 Indledende programmering Hjemmeopgave 2
+---
+title: Indledende Programmering - Hjemmeopgave 2
+author: 
+- Asbjørn Kjær Olling S163615
+- Oliver Sander Poulsen S174122
+header-includes:
+    - \usepackage{fancyhdr}
+    - \pagestyle{fancy}
+    - \fancyfoot[CE,CO]{\thepage}
+    - \fancyfoot[RE,RO]{S163615}
+    - \fancyfoot[LE,LO]{S174122}
+    - \fancyhead[RE,RO]{Hjemmeopgave 2}
+---
 
-**Gruppens medlemmer**
 
-Asbjørn Kjær Olling (S163615)
+## Problem 1: `TextAnalysis`
 
-Oliver Sander Poulsen (s174122)
+I `TextAnalysis.java` bruges BufferedReader til at læse linjer fra en given fil. 
+Hvis filen ikke kan findes, kastes der en `FileNotFound` undtagelse.
 
-**Arbejdsdelingen**
+Der bruges en Regular Expression som parameter til metoden `String.split()`, for at adskille hverlinje til ord i et array.
 
-Rapport:
+Ordene løbes igennem vha. et `for`-loop. Der forekommer et sanity-check, for at bestemme om ordet overhovedet er validt. 
+Ordet sammenlignes med en `ArrayList` af unikke ord, for at bestemme om det er unikt. 
+Det sammenlignes derefter med `previousWord` for at bestemme om det er en umiddelbar gentagelse i teksten.
 
-Oliver Sander Poulsen og Asbjørn Kjær Olling.
+TextAnalysen foregår udelukkende i konstruktøren, mens værdien af objektets felter kan hentes vha. specifike metoder.
 
-**Problem 1 \[Text analysis\]:**
+## Problem 2: `TrianglePattern`
 
-Asbjørn Kjær Olling
+`TrianglePattern` drejer hovedsagligt om at udfylde et array af arrays af integers, `int[][] grid`, som repræsenterer koordinater for hvert felt i mønstret. Grid har dimensionerne $n\times h$, som beskrevet i opgaven.
 
-**Problem 2 \[Run a Simulation\]:**
+Udfylding af mønstret i `grid` foregår i klassens konstruktør. Resten af metoderne har formålet at returnere information om objektet.
 
-Asbjørn Kjær Olling
+Første række udfyldes ved at løbe igennem et givet array over indices, som bør være udfyldt. `1`-taller sættes i de passende indices i `grid[0]`;
 
-**Problem 3 \[Design a Class\]:**
+Derefter bruges et `for`-loop til at løbe gennem resten af felterne. De forskellige cases i opgaven er i forvejen sorteret, så vi kan ud fra rækkefølgen i PDF'en kigge på f.eks. kassen øverst til venstre, for et udelukke halvdelen af cases'ne. Vi har til sidst kunnet snævre case-detection ned til kun to if-statements, med tre boolske udtryk i hver.
 
-Asbjørn Kjær Olling
+Felterne i de yderste søjler checkes ikke, da de ikke gyldigt kan udfyldes p.g.a. manglende felter (hhv. til højre og venstre for).
 
-**Beskrivelse af programmer**
+## Problem 3: `MovingPoint` 
 
-**Problem 1 \[Text analysis\]:**
+`MovingPoint`-klassen er en subklasse af `Point2D.Double`. Fra superklassen bruges `setLocation()` metoden, samt felterne `double x, y`.
 
-I programmet Text analysis bruges der en scanner til at åbne tekstfilen,
-der skal analyseres. Der startes et whileloop, hvor der ses på en enkelt
-linje af gangen.
+De to konstruktører er uhyrre simple. Værdier overføres til klassens felter. Hvis der ikke gives nogen parametre til konstruktøren, bruges der default-værdier som angivet i opgaven.
 
-Hver linje deles op i ord, og objektet ”wordCount” tæller op med én for
-hvert ord. Derudover oprettes der et array hvor alle ord, der ikke
-allerede findes i arrayet, tilføjes til det. Til sidst er der objektet
-”immediateRepetitions”, der tæller hvor mange gange det samme ord går
-igen.
+Metoden `move()` konverterer `direction` fra grader til radianer, og gør brug af trigonometriske funktioner fra `Math` til at udregne punktets nye position.
 
-I tilfælde af at wordCount skulle overgå maxNoOfWords, vil whileloopet
-stoppe.
+Metoden `turnBy()` lægger en vinkel til `direction` feltet, og bruger `while`-loops til at flytte værdien ind i intervallet $[0;360]$. Alternativt kunne modulo bruges, for at finde hovedargumentet.
 
-**Problem 2 \[Run a Simulation\]:**
+Metoden `accelerateBy()` lægger en hastighedsændring til `speed` feltet, og bruger et `if`-statement til at korrigere negative tal. 
+Oprindeligt antog vi at negative hastiheds-værdier betød at punktet "bakker", altså at vinklen ændres med $180^{\circ}$, og hastighedn blev den absolutte værdi, af hvad den var. 
+Den alternative løsning står stadig (udkommenteret) i `MovingPoint.java` på linjer 57-62.
 
-**Problem 3 \[Design a Class\]:**
+## Arbejdsfordeling:
 
-Den første konstruktør sætter MovingPoints punkt i origo, med en vinkel
-på 90 og en hastighed på 0. Herefter vil den anden konstruktør tjekke
-for indputs for ”move”, ”turnBy” og ”accelerateBy”, så MovingPoint kan
-bevæge sig rundt. I metoden ”move”, udregnes de nye x og y koordinater
-ud fra retningen (vinklen omregnet til radianer), hastigheden og
-duration.\
-”turnBy” kan ændres så retningens værdi kun kan findes indenfor
-intervallet \[0;360\].\
-Til sidst er der ”acclerateBy”, der er ændringen i hastigheden. Her
-sikres det, at hastigheden ikke kan være negativ, så hvis hastigheden
-sættes til noget negativt, vil den blive ændret til 0.
+* **Problem 1:** Oliver + Asbjørn
+* **Problem 2:** Asbjørn
+* **Problem 3:** Oliver + Asbjørn
 
-Herudover har vi lavet en løsning, hvor en negativ hastighed vil medføre
-at punktet vender 180 grader og bevæger sig i den modsatte regning. F.
-eks. Hvis punktet bevæger sig med 10 og modtager en ændring på -12, vil
-den nu bevæge sig 2, men nu i den modsatte retning.
