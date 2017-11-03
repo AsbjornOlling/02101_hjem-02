@@ -13,14 +13,14 @@ public class TrianglePattern {
 	private int[] initial;
 	private int[][] grid;
 
-	// main code for generating the pattern
+	// constructor - main code for generating the pattern
 	public TrianglePattern(int n, int h, int[] initial) {
 		// put parameters into instance fields
 		this.h = h;
 		this.n = n;
 		this.initial = initial;
 	
-		// declare grid array	
+		// initialize grid array	
 		grid = new int[h][n];
 		
 		// put initial[] into the first row of grid
@@ -45,8 +45,8 @@ public class TrianglePattern {
 				nBlock = grid[y-1][x];
 				neBlock = grid[y-1][x+1];
 
-				// since the cases are already sorted in the assignment
-				// we can narrow down the cases, like a hardcoded binary search
+				// the cases are already sorted in the assignment PDF
+				// we can narrow down the cases, looking kind of like a (hardcoded) binary search
 				// first four cases:
 				if (nwBlock == 0) {
 
@@ -97,7 +97,6 @@ public class TrianglePattern {
 			} // cells loop
 		} // rows loop
 	} // constructor
-
 
 	// getter methods
 	public int getValueAt(int r, int c) {
