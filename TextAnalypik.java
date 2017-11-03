@@ -30,13 +30,13 @@ public class TextAnalypik {
 			text = new BufferedReader(new FileReader(sourceFileName));
 		} catch (FileNotFoundException ex) {
 			System.out.println("ERROR: The file wasn't found, or could not be read.");
-		} //*/
+		} 
 
-		// declare some vars needed in the loops
+		// initialize previousWord, so there is something for first check
 		String previousWord = "";
-		String line = "";
 
 		// pull a single line, stop when there are no more lines
+		String line;
 		linesLoop:
 		while ( text.ready() ) {
 
@@ -44,33 +44,23 @@ public class TextAnalypik {
 				line = text.readLine();
 			} while (line.length() == 0); 
 
-			// pull out letter-only words into an array
+			// pull letter-only words into an array
 			String[] arrayOfWords = line.split("[^a-zA-Z]+");
-			System.out.println(Arrays.toString(arrayOfWords));
 
-			// go through the words in a single line
-			wordsLoop:
+			// go through the words in the array
 			for ( int i = 0; i < arrayOfWords.length; i++) {
 
 				String word = arrayOfWords[i];
 
 				// if word is empty, get a new one
+				// stop when no more words in line
 				while (word.length() == 0 && i < arrayOfWords.length) {
 					i++;
 					word = arrayOfWords[i];
 				}
 
-				System.out.println(word);
-
-				/*
-				// This is my fucking problem	
-				// TODO fix my fucking problem
-				if (word.length() == 0) {
-					break wordsLoop;
-				} //*/
-
 				// count the word
-				wordCount = wordCount + 1;
+				wordCount++;
 
 				// check for case-insensitive uniqueness
 				word = word.toLowerCase();
