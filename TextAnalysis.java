@@ -1,119 +1,91 @@
-//TextReader
-//public int wordCount ()
-//public int getNoOfDifferentWords ()
-//public int getNoOfRepetitions ()
-	
-//A word is a non-empty string consisting only of letters (a,. . . ,z,A,. . . ,Z),
-//surrounded by blanks, punctuation, hyphenation, line start, or line end.
-//In the analysis, punctuation is ignored. The analysis is non-case-sensitive.
-	
-
-/*	String text = "hej med dig";
-	String[] tokens = text.split("[^a-zA-Z]+");
-	System.out.println(Arrays.toString(tokens));
-	int Arraylength=tokens.length();
-	System.out.prinln(Arraylength);
+/*
+ Problem 1 
+ Hjemmeopgave 2 - Indledende Programmering
 */
 
-import java.util.Scanner;
-import java.io.*;
-import java.util.Arrays;
-import java.util.ArrayList;
+import java.io.FileReader; // to open the file
+import java.io.FileNotFoundException; // to handle missing files
+import java.io.BufferedReader; // to read lines from the file
+import java.util.ArrayList; // for uniquewords list
+
 public class TextAnalysis {
-public int wordCount;
-public int getNoOfDifferentWords;
-public int getNoOfRepetitions;
-	
-	public static void main(String[] args) {
-		new TextAnalysis("text17_01.txt",50);
-	}
-	
-	BufferedReader reader;
-	String line;
-	String sourceFileName = "text17_01.txt";
-	public TextAnalysis (String sourceFileName, int maxNoOfWords) {
-		BufferedReader reader = null;
+	// fields
+	private BufferedReader text;
+	private int wordCount = 0;
+	private int immediateRepetitions = 0;
+	private ArrayList<String> uniqueWords = new ArrayList<String>();
+
+	// constructor - does all of the main work counting words
+	public TextAnalysis(String sourceFileName, int maxNoOfWords) throws Exception {
+
+		// open the file
 		try {
-		    File file = new File("sourceFileName");
-		    reader = new BufferedReader(new FileReader(file));
+			text = new BufferedReader(new FileReader(sourceFileName));
+		} catch (FileNotFoundException ex) {
+			System.out.println("ERROR: The file wasn't found, or could not be read.");
+		} 
 
-		    while ((line = reader.readLine()) != null) {
-		        System.out.println(line);
-		    }
+		// initialize previousWord, so there is something for first check
+		String previousWord = "";
 
-		} catch (IOException e) {
-		    e.printStackTrace();
-		} finally {
-		    try {
-		        reader.close();
-		    } catch (IOException e) {
-		        e.printStackTrace();
-		    }
-		}
-		
-		// counter starter paa 0
-		wordCount=0;
+		// pull a single line, stop when there are no more lines
+		String line;
+		linesLoop:
+		while ( text.ready() ) {
 
-		//
-		String singleWord = null;
-		
-		//Array for unikke ord
-		ArrayList uniqueWords = new ArrayList();
-		
-		// saa laenge der er linjer koeres dette loop
-		while (sc.hasNextLine()) {
-			//
-			String aLine = sc.nextLine();
-			
-			// Splitter linjerne op i arrays bestaaende af ord
-			String[] textArray = aLine.split("[^a-zA-Z-']+"); // saadan her? hvad med tyske tegn?
-			
-			String[] blankLine= {};
-			int arrayLength;
-			if (!(textArray==blankLine)) {
-				// Antal ord paa linjen
-				arrayLength=textArray.length;
-				wordCount+=arrayLength;
-			}else {
-			break;
-			}
+			do { // if line is empty, get a new one
+				line = text.readLine();
+			} while (line.length() == 0); 
 
-			System.out.println(wordCount);
-			// Taeller summen af alle ord sammen
-			
-			// Lav et for loop... saet det til i, naar du ikke har brug for stoettehjul
-			int i;
-			
-			//
-			for (i=0;i<arrayLength;i++) {
-				singleWord = textArray[i];
-				if (!uniqueWords.contains(singleWord)) {
-					uniqueWords.add(singleWord);
+			// pull letter-only words into an array
+			String[] arrayOfWords = line.split("[^a-zA-Z]+");
+
+			// go through the words in the array
+			for ( int i = 0; i < arrayOfWords.length; i++) {
+
+				String word = arrayOfWords[i];
+
+				// if word is empty, get a new one
+				// stop when no more words in line
+				while (word.length() == 0 && i < arrayOfWords.length) {
 					i++;
-				}else {
-				i++;
-				}			
-			}
-		}
-		
-		//
-		getNoOfDifferentWords = uniqueWords.size();
-		
-		/*System.out.println(getNoOfDifferentWords);
-		System.out.println(uniqueWords);
-		System.out.println(getNoOfRepetitions);*/
-	}
-	
-	public int wordCount () {
+					word = arrayOfWords[i];
+				}
+
+				// count the word
+				wordCount++;
+
+				// check for case-insensitive uniqueness
+				word = word.toLowerCase();
+				if (!uniqueWords.contains(word)) {
+					uniqueWords.add(word);
+				} 
+
+				// check for immediate repetitions, still case-sensitive
+				if (previousWord.equals(word)) {
+					immediateRepetitions = immediateRepetitions + 1;
+				}
+
+				// set this word as the new previous word
+				previousWord = word;
+
+				// break out of both nested loops, if wordcount reached (or exceeded)
+				if(wordCount >= maxNoOfWords) { 
+					break linesLoop;
+				}
+			} // words loop
+		} // lines loop
+	} // constructor
+
+	// here come the getter methods
+	public int wordCount() {
 		return wordCount;
+	} 
+	public int getNoOfDifferentWords() {
+		return uniqueWords.size();
+	} //*/
+	public int getNoOfRepetitions() {
+		return immediateRepetitions;
 	}
-	
-	public int getNoOfDifferentWords () {
-		return getNoOfDifferentWords;
-	}
-	
-	public int getNoOfRepetitions () {
-		return getNoOfRepetitions;
-	}
-	
-}
+			
+} // class
