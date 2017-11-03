@@ -15,56 +15,54 @@ import java.io.FileReader;
 // number of unique words
 // number of immediate repetitions
 
-// HAMLET NOTES:
-// underestimates wordcount
-// underestimates unique wordcount
-// underestimates repeated words
-// linecount is on point
-//
-// if not checking wordlength == 0
-// 	wordcount way over
-// 	unique wordcount on point
-// 	repetitions way over (+850)
-
 public class TextAnalypik {
 	// fields
-	public BufferedReader text;
-	public ArrayList<String> uniqueWords = new ArrayList<String>();
-	public ArrayList<String> allWords = new ArrayList<String>();
-	public int maxNoOfWords;
-	public int wordCount;
-	public int immediateRepetitions;
+	private BufferedReader text;
+	private int wordCount = 0;
+	private int immediateRepetitions = 0;
+	private ArrayList<String> uniqueWords = new ArrayList<String>();
 
+	// constructor - does all of the main work counting words
 	public TextAnalypik(String sourceFileName, int maxNoOfWords) throws Exception {
 
 		// open the file
 		try {
-			BufferedReader text = new BufferedReader(new FileReader(sourceFileName));
+			text = new BufferedReader(new FileReader(sourceFileName));
 		} catch (FileNotFoundException ex) {
 			System.out.println("ERROR: The file wasn't found, or could not be read.");
 		} //*/
 
 		// declare some vars needed in the loops
 		String previousWord = "";
-		String line;
+		String line = "";
 
 		// pull a single line, stop when there are no more lines
-		readingLoop:
-		while ( ( line = text.readLine() ) != null ) {
+		linesLoop:
+		while ( text.ready() ) {
+
+			do { // if line is empty, get a new one
+				line = text.readLine();
+			} while (line.length() == 0); 
 
 			// pull out letter-only words into an array
 			String[] arrayOfWords = line.split("[^a-zA-Z]+");
+			System.out.println(Arrays.toString(arrayOfWords));
 
 			// go through the words in a single line
-			for (String word : arrayOfWords) {
+			wordsLoop:
+			for ( int i = 0; i < arrayOfWords.length; i++) {
 
-				// handle cases with empty lines
+				String word = arrayOfWords[i];
+				System.out.println(word);
+
+				// This is my fucking problem	
+				// TODO fix my fucking problem
 				if (word.length() == 0) {
-					break;
-				}
+					break wordsLoop;
+				} //*/
 
 				// count the word
-				wordCount++;
+				wordCount = wordCount + 1;
 
 				// check for case-insensitive uniqueness
 				word = word.toLowerCase();
@@ -74,7 +72,7 @@ public class TextAnalypik {
 
 				// count an immediate repetition, if last word equals this word
 				if (previousWord.equals(word)) {
-					immediateRepetitions++;
+					immediateRepetitions = immediateRepetitions + 1;
 				}
 
 				// set this word as the new previous word
@@ -82,7 +80,7 @@ public class TextAnalypik {
 
 				// break out of both nested loops, if wordcount reached (or exceeded)
 				if(wordCount >= maxNoOfWords) { 
-					break readingLoop;
+					break linesLoop;
 				}
 			} // words loop
 		} // lines loop
