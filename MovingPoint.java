@@ -1,7 +1,6 @@
 /*
 // Problem 3 
 // Hjemmeopgave 2 - Indledende Programmering
-// Asbjørn Olling
 */ 
 
 // a point in 2d-space, which moves described by doubles
@@ -11,7 +10,7 @@ import java.lang.Math; // used for trigonometric functions in move()
 import java.awt.geom.Point2D; // class to inherit from
 
 public class MovingPoint extends Point2D.Double {
-	// introduce fields specific to moving points
+	// introduce fields for moving points
 	private double direction;
 	private double speed;
 
@@ -35,10 +34,10 @@ public class MovingPoint extends Point2D.Double {
 
 	// move the point for a number of time units
 	public void move(double duration) {
-		double dirRadians = Math.toRadians(direction);
+		double dirInRadians = Math.toRadians(direction);
 		// use trigonometry to calculate new coordinates
-		x += Math.cos(dirRadians) * speed * duration;
-		y += Math.sin(dirRadians) * speed * duration;
+		x += Math.cos(dirInRadians) * speed * duration;
+		y += Math.sin(dirInRadians) * speed * duration;
 	} // move
 
 
@@ -75,12 +74,13 @@ public class MovingPoint extends Point2D.Double {
 			speed = 0;
 		} // fi	
 
-		/* Alternate solution:
+		/* Alternate (better) solution:
 		// Turn the point around, if speed < 0
 		if (speed < 0) {
 			speed = speed * -1;
 			direction = (direction + 180) % 360;
 		} //*/
+
 	} // accelerateBy
 
 
