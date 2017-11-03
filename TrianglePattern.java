@@ -45,54 +45,28 @@ public class TrianglePattern {
 				nBlock = grid[y-1][x];
 				neBlock = grid[y-1][x+1];
 
-				// the cases are already sorted in the assignment PDF
-				// we can narrow down the cases, looking kind of like a (hardcoded) binary search
+				// the cases are already sorted in the assignment
+				// so can narrow down the cases to do fewer checks
 				// first four cases:
 				if (nwBlock == 0) {
 
-					// first two cases
-					if (nBlock == 0) {
-
-						// first case
-						if (neBlock == 0) {
-							grid[y][x] = 0;
-						}
-
-						// second case
-						if (neBlock == 1) {
-							grid[y][x] = 1;
-						}
-					} 
-
-					// third and fourth cases give the same output
-					// no need to check for which
-					else if (nBlock == 1) {
+					// only the first case of the first four is empty
+					// so if it's not the first case:
+					if ( !(nBlock == 0 && neBlock == 0 ) ) {
 						grid[y][x] = 1;
 					}
-				} // end of first four
+
+				} // end of first four cases
 
 				// last four cases
 				else if (nwBlock == 1) {
 
-					// fifth and sixth cases
-					if (nBlock == 0) {
-
-						// fifth case
-						if (neBlock == 0) {
-							grid[y][x] = 1;
-						}
-						
-						// sixth case
-						else if (neBlock == 1) {
-							grid[y][x] = 0;
-						}
-
+					// if it's the fifth case:
+					if ( nBlock == 0 && neBlock == 0 ) {
+						grid[y][x] = 1;
 					}
+					// 6th, 7th and 8th cases are all empty
 
-					// last two cases give the same output
-					else if (nBlock == 1) {
-						grid[y][x] = 0;
-					}
 				} // end of all 8 cases
 			} // cells loop
 		} // rows loop
