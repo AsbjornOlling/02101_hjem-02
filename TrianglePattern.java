@@ -1,7 +1,6 @@
 /*
  Problem 2 
  Hjemmeopgave 2 - Indledende Programmering
- Asbjørn Olling
 */ 
 
 // h rows
@@ -36,15 +35,15 @@ public class TrianglePattern {
 		// declare "northwest", "north", and "northeast" blocks
 		int nwBlock,nBlock,neBlock; 
 		// loop through rows, starting with second row
-		for (int i = 1; i < h; i++) {
+		for (int y = 1; y < h; y++) {
 
 			// loop through cells in row, from second to second-last cell 
 			// (because the first and last dont have NW and NE blocks)
-			for (int j = 1; j < n-1; j++) {
+			for (int x = 1; x < n-1; x++) {
 				// get states of line above
-				nwBlock = grid[i-1][j-1];
-				nBlock = grid[i-1][j];
-				neBlock = grid[i-1][j+1];
+				nwBlock = grid[y-1][x-1];
+				nBlock = grid[y-1][x];
+				neBlock = grid[y-1][x+1];
 
 				// since the cases are already sorted in the assignment
 				// we can narrow down the cases, like a hardcoded binary search
@@ -56,19 +55,19 @@ public class TrianglePattern {
 
 						// first case
 						if (neBlock == 0) {
-							grid[i][j] = 0;
+							grid[y][x] = 0;
 						}
 
 						// second case
 						if (neBlock == 1) {
-							grid[i][j] = 1;
+							grid[y][x] = 1;
 						}
 					} 
 
 					// third and fourth cases give the same output
 					// no need to check for which
 					else if (nBlock == 1) {
-						grid[i][j] = 1;
+						grid[y][x] = 1;
 					}
 				} // end of first four
 
@@ -80,19 +79,19 @@ public class TrianglePattern {
 
 						// fifth case
 						if (neBlock == 0) {
-							grid[i][j] = 1;
+							grid[y][x] = 1;
 						}
 						
 						// sixth case
 						else if (neBlock == 1) {
-							grid[i][j] = 0;
+							grid[y][x] = 0;
 						}
 
 					}
 
 					// last two cases give the same output
 					else if (nBlock == 1) {
-						grid[i][j] = 0;
+						grid[y][x] = 0;
 					}
 				} // end of all 8 cases
 			} // cells loop
@@ -105,13 +104,13 @@ public class TrianglePattern {
 		return grid[r][c];
 	}
 	public int getN() {
-		return this.n;
+		return n;
 	}
 	public int getH() {
-		return this.h;
+		return h;
 	}
 	public int[] getInitial() {
-		return this.initial;
+		return initial;
 	} // getters
 
 } // class
